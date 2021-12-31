@@ -31,6 +31,8 @@ public class JustTouched extends MyGdxGame{
 
     private   static int TouchY2;
 
+
+
     public  static int IfJustTouched() {
 
 
@@ -57,15 +59,21 @@ public class JustTouched extends MyGdxGame{
                 TouchY2 = 0;
             }
 
-            System.out.println(("rjad y= "+RjadY +" rjad x= " + RjadX));
+
 
     nc = ((RjadY * 8) + RjadX)+1;
     MyGdxGame.setNC(nc);
 
-            System.out.println(" Touch=> " + nc);
+
 
         }
 
+        if (NoDublePressed.TouchPressVerify(getNC())){
+nc=nc;
+        }
+
+        else nc=0;
+        System.out.println(" Touch=> " + nc);
         return nc;
 
     }
