@@ -129,7 +129,7 @@ public class MyGdxGame extends Blok implements ApplicationListener {
 
         }
 
-        if (getStatusMenu()==3){
+        if (getStatusMenu()==2){
             if (Gdx.input.justTouched()) {
 
                 IfJustTouched();
