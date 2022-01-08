@@ -44,7 +44,9 @@ public class MyGdxGame extends Blok implements ApplicationListener {
         StatusMenu = statusMenu;
     }
 
-    private static int StatusMenu; //0-start; 1-menu; 20-mashine; 30-builders; 40-animals; 50-world
+    private static int StatusMenu; //0-start; 1-menu;
+
+
 
 
 
@@ -111,87 +113,61 @@ public class MyGdxGame extends Blok implements ApplicationListener {
         batch.begin();
 
 
+        if (Gdx.input.justTouched()) {
+
+            IfJustTouched();
+
+        }
+
        //TODO draw
 
-        if(getStatusMenu()==0){
 
-            if (Gdx.input.justTouched()) {
+        switch (getStatusMenu()){
+            case(0):{
+                //TODO draw zastavka
+                DrawZastavka.Zastavka();
 
-                IfJustTouched();
+                if(getNC()>0){
 
-            }
-            //TODO draw zastavka
-            DrawZastavka.Zastavka();
+                    setStatusMenu(1);
 
-            if(getNC()>0){
-                setStatusMenu(1);
-            }
-
-        }
-        if (getStatusMenu()==1){
-
-            if (Gdx.input.justTouched()) {
-
-                IfJustTouched();
-
+                }
+                break;
             }
 
-            //TODO draw menu
-            DrawMenu.Menu();
-            setNC(0);
+            case(1):{
+                //TODO draw menu
+                DrawMenu.Menu();
+                //  setNC(0);
 
+               if(Pause1sec.Pause1(Gdx.graphics.getDeltaTime())){
+                   System.out.print("+");
+                   SelectMenu.SelMenu(getNC());
+               }
 
-
-
-
-if (getNC()==0){
-    if (Gdx.input.justTouched()) {
-
-        IfJustTouched();
-
-    }
-}
-            if(getNC()==1||getNC()==2||
-               getNC()==9|| getNC()==10||
-               getNC()==17|| getNC()==18||
-               getNC()==25|| getNC()==26){
-               setStatusMenu(20);
+                break;
             }
 
-            if(getNC()==3||getNC()==4||
-                    getNC()==11|| getNC()==12||
-                    getNC()==19|| getNC()==20||
-                    getNC()==27|| getNC()==28){
-                setStatusMenu(30);
+            case (100):{
+                DrawSubMenuMashine.SubMenuMashine();
+                break;
             }
 
-            if(getNC()==5||getNC()==6||
-                    getNC()==13|| getNC()==14||
-                    getNC()==21|| getNC()==22||
-                    getNC()==29|| getNC()==30){
-                setStatusMenu(40);
+            case (200):{
+                DrawSubMenuMashine.SubMenuMashine();
+                break;
             }
 
-            if(getNC()==7||getNC()==8||
-                    getNC()==15|| getNC()==16||
-                    getNC()==23|| getNC()==24||
-                    getNC()==31|| getNC()==32){
-                setStatusMenu(50);
+            case (300):{
+                DrawSubMenuMashine.SubMenuMashine();
+                break;
             }
 
-
-
-        }
-
-        if (getStatusMenu()==20){
-            if (Gdx.input.justTouched()) {
-
-                IfJustTouched();
-
+            case (400):{
+                DrawSubMenuMashine.SubMenuMashine();
+                break;
             }
 
-            //TODO draw game
-          DrawSubMenuMashine.SubMenuMashine();
         }
 
 
