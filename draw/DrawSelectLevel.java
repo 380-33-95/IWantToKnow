@@ -8,7 +8,7 @@ public class DrawSelectLevel extends MyGdxGame {
 
     public static void DrawRunSelectLevel() {
 
-        TextureRegion SelectLevel = new TextureRegion(atlas, 3600, 4400, WIDTH, HEIGHT);
+        TextureRegion SelectLevel = new TextureRegion(atlastexture, 3600, 4400, WIDTH, HEIGHT);
 
         batch.draw(SelectLevel,
                 0,

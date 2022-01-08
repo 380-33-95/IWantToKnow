@@ -7,8 +7,8 @@ public class NoDublePressed {
 static int nc1;
 static int nc2;
 
-  public static boolean  TouchPressVerify (int nc) {
-    boolean bnc;
+  public static boolean TouchPressVerify (int nc) {
+    boolean bnc=false;
 
     nc1=nc;
 

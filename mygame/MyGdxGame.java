@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.mycompany.draw.DrawMenu;
+import com.mycompany.draw.DrawSubMenuMashine;
 import com.mycompany.draw.DrawZastavka;
 
 import static com.mycompany.mygame.JustTouched.IfJustTouched;
@@ -17,16 +18,22 @@ import static com.mycompany.mygame.JustTouched.setTouchY2;
 
 public class MyGdxGame extends Blok implements ApplicationListener {
 
+    public MyGdxGame(){
+    }
+
+
     public static OrthographicCamera camera;
     public static SpriteBatch batch;
-    public static Texture atlas;
-    public static Texture zastavka;
-    public static Texture menu;
-
+    public static Texture atlastexture;
+    public static Texture zastavkatexture;
+    public static Texture menutexture;
+    public static Texture subMenuMashinetexture;
 
 
     protected final static int HEIGHT = 600;
     protected final static int WIDTH = 1200;
+
+    public static String menu;
 
 
     public static int getStatusMenu() {
@@ -37,7 +44,12 @@ public class MyGdxGame extends Blok implements ApplicationListener {
         StatusMenu = statusMenu;
     }
 
-    private static int StatusMenu; //0-start; 1-menu; 2-game
+    private static int StatusMenu; //0-start; 1-menu;
+
+
+
+
+
 
     public static int getNC() {
         return NC;
@@ -72,14 +84,16 @@ public class MyGdxGame extends Blok implements ApplicationListener {
         camera.setToOrtho(false, WIDTH, HEIGHT);
 
         batch = new SpriteBatch();
-        atlas = new Texture("atlas.png");
-        menu = new Texture("menu.png");
-        zastavka = new Texture("zastavka.png");
-
+        atlastexture = new Texture("atlas.png");
+        menutexture = new Texture("menu.png");
+        zastavkatexture = new Texture("zastavka.png");
+        subMenuMashinetexture = new Texture("subMenuMashine.png");
 
     }
 
     ////////////////////////////
+
+
     @Override
     public void resize(int width, int height) {
 
@@ -88,7 +102,7 @@ public class MyGdxGame extends Blok implements ApplicationListener {
     @Override
     public void render() {
 
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
@@ -99,45 +113,61 @@ public class MyGdxGame extends Blok implements ApplicationListener {
         batch.begin();
 
 
+        if (Gdx.input.justTouched()) {
+
+            IfJustTouched();
+
+        }
+
        //TODO draw
 
-        if(getStatusMenu()==0){
 
-            if (Gdx.input.justTouched()) {
+        switch (getStatusMenu()){
+            case(0):{
+                //TODO draw zastavka
+                DrawZastavka.Zastavka();
 
-                IfJustTouched();
+                if(getNC()>0){
 
-            }
-            //TODO draw zastavka
-            DrawZastavka.Zastavka();
+                    setStatusMenu(1);
 
-            if(getNC()>0){
-                setStatusMenu(1);
-            }
-
-        }
-        if (getStatusMenu()==1){
-
-            if (Gdx.input.justTouched()) {
-
-                IfJustTouched();
-
+                }
+                break;
             }
 
-            //TODO draw menu
-            DrawMenu.Menu();
+            case(1):{
+                //TODO draw menu
+                DrawMenu.Menu();
+                //  setNC(0);
 
-        }
+               if(Pause1sec.Pause1(Gdx.graphics.getDeltaTime())){
+                   System.out.print("+");
+                   SelectMenu.SelMenu(getNC());
+               }
 
-        if (getStatusMenu()==3){
-            if (Gdx.input.justTouched()) {
-
-                IfJustTouched();
-
+                break;
             }
 
-            //TODO draw game
-            DrawMenu.Menu();
+            case (100):{
+                DrawSubMenuMashine.SubMenuMashine();
+                break;
+            }
+
+            case (200):{
+                DrawSubMenuMashine.SubMenuMashine();
+                break;
+            }
+
+            case (300):{
+                DrawSubMenuMashine.SubMenuMashine();
+                break;
+            }
+
+            case (400):{
+                DrawSubMenuMashine.SubMenuMashine();
+                break;
+            }
+
         }
 
 
@@ -164,7 +194,7 @@ public class MyGdxGame extends Blok implements ApplicationListener {
     public void dispose() {
 
         batch.dispose();
-        atlas.dispose();
+        atlastexture.dispose();
 
     }
 
