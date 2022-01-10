@@ -8,12 +8,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.mycompany.draw.DrawMenu;
-import com.mycompany.draw.DrawSubMenuMashine;
+import com.mycompany.draw.DrawSubMenu;
 import com.mycompany.draw.DrawZastavka;
 
 import static com.mycompany.mygame.JustTouched.IfJustTouched;
 import static com.mycompany.mygame.JustTouched.setTouchX2;
 import static com.mycompany.mygame.JustTouched.setTouchY2;
+import static com.mycompany.mygame.SelectMenu.animals;
+import static com.mycompany.mygame.SelectMenu.builders;
+import static com.mycompany.mygame.SelectMenu.massblok;
+import static com.mycompany.mygame.SelectMenu.technics;
+import static com.mycompany.mygame.SelectMenu.world;
+
 
 
 public class MyGdxGame extends Blok implements ApplicationListener {
@@ -24,11 +30,13 @@ public class MyGdxGame extends Blok implements ApplicationListener {
 
     public static OrthographicCamera camera;
     public static SpriteBatch batch;
-    public static Texture atlastexture;
-    public static Texture zastavkatexture;
-    public static Texture menutexture;
-    public static Texture subMenuMashinetexture;
-
+    public static Texture atlasTexture;
+    public static Texture zastavkaTexture;
+    public static Texture menuTexture;
+    public static Texture subMenuAnimalsTexture;
+    public static Texture subMenuTechnicsTexture;
+    public static Texture subMenuBuildersTexture;
+    public static Texture subMenuWordTexture;
 
     protected final static int HEIGHT = 600;
     protected final static int WIDTH = 1200;
@@ -52,7 +60,9 @@ public class MyGdxGame extends Blok implements ApplicationListener {
 
 
     public static int getNC() {
-        return NC;
+        wnc=NC;
+        NC=0;
+        return wnc;
     }
 
     public static void setNC(int nc) {
@@ -60,6 +70,7 @@ public class MyGdxGame extends Blok implements ApplicationListener {
     }
 
     private static int NC;
+    public static int wnc;
 
     static Vector3 Touch = new Vector3();
 
@@ -74,6 +85,11 @@ public class MyGdxGame extends Blok implements ApplicationListener {
         setTouchX2(0);
         setTouchY2(0);
 
+        massblok.add(technics);
+        massblok.add(animals);
+        massblok.add(world);
+        massblok.add(builders);
+
     }
 
 
@@ -83,12 +99,15 @@ public class MyGdxGame extends Blok implements ApplicationListener {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WIDTH, HEIGHT);
 
-        batch = new SpriteBatch();
-        atlastexture = new Texture("atlas.png");
-        menutexture = new Texture("menu.png");
-        zastavkatexture = new Texture("zastavka.png");
-        subMenuMashinetexture = new Texture("subMenuMashine.png");
 
+        batch = new SpriteBatch();
+        atlasTexture = new Texture("atlas.png");
+        menuTexture = new Texture("menu.png");
+        zastavkaTexture = new Texture("zastavka.png");
+        subMenuTechnicsTexture = new Texture("subMenuTechnics.png");
+        subMenuAnimalsTexture = new Texture("subMenuAnimals.png");
+        subMenuBuildersTexture = new Texture("subMenuBuilders.png");
+        subMenuWordTexture = new Texture("subMenuWorld.png");
     }
 
     ////////////////////////////
@@ -109,64 +128,59 @@ public class MyGdxGame extends Blok implements ApplicationListener {
 
         batch.setProjectionMatrix(camera.combined);
 
-
         batch.begin();
 
-
         if (Gdx.input.justTouched()) {
-
             IfJustTouched();
-
         }
 
        //TODO draw
 
 
-        switch (getStatusMenu()){
-            case(0):{
+        switch (getStatusMenu())
+        {
+            case(0):
+                {
                 //TODO draw zastavka
                 DrawZastavka.Zastavka();
 
-                if(getNC()>0){
-
+                if (getNC() > 0) {
                     setStatusMenu(1);
-
                 }
                 break;
-            }
+                }
 
-            case(1):{
-                //TODO draw menu
+
+            case(1):
+                {
                 DrawMenu.Menu();
-                //  setNC(0);
+                SelectMenu.SelMenu(getNC());
+                    break;
+                }
 
-               if(!Pause1sec.Pausa(1000)){
+            case (100)://Technics
+                {
+                 DrawSubMenu.SubMenu(subMenuTechnicsTexture);
+                 break;
+                }
 
-                   SelectMenu.SelMenu(getNC());
-               }
-
+            case (200)://Building
+                {
+                DrawSubMenu.SubMenu(subMenuBuildersTexture);
                 break;
-            }
+                }
 
-            case (100):{
-                DrawSubMenuMashine.SubMenuMashine();
+            case (300)://Animals
+                {
+                DrawSubMenu.SubMenu(subMenuAnimalsTexture);
                 break;
-            }
+                }
 
-            case (200):{
-                DrawSubMenuMashine.SubMenuMashine();
+            case (400)://World
+                {
+                DrawSubMenu.SubMenu(subMenuWordTexture);
                 break;
-            }
-
-            case (300):{
-                DrawSubMenuMashine.SubMenuMashine();
-                break;
-            }
-
-            case (400):{
-                DrawSubMenuMashine.SubMenuMashine();
-                break;
-            }
+                }
 
         }
 
@@ -194,7 +208,7 @@ public class MyGdxGame extends Blok implements ApplicationListener {
     public void dispose() {
 
         batch.dispose();
-        atlastexture.dispose();
+        atlasTexture.dispose();
 
     }
 

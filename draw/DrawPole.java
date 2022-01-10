@@ -18,7 +18,7 @@ public class DrawPole extends MyGdxGame {
 
 
                 //idex
-                TextureRegion PoleIndex = new TextureRegion(atlastexture, BlokList.get(pp).getIndex() * 100, color, 100, 100);
+                TextureRegion PoleIndex = new TextureRegion(atlasTexture, BlokList.get(pp).getIndex() * 100, color, 100, 100);
                 batch.draw(PoleIndex, BlokList.get(pp).getX(), BlokList.get(pp).getY(), 1, 1, WIDTH / 7, HEIGHT / 12, 1, 1, 0);
 
 

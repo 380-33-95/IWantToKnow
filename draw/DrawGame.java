@@ -10,7 +10,7 @@ public class DrawGame extends MyGdxGame {
     public static void DrGame() {
         {
 
-            TextureRegion ZastavkaGame = new TextureRegion(atlastexture, 0, 0, WIDTH, HEIGHT);
+            TextureRegion ZastavkaGame = new TextureRegion(atlasTexture, 0, 0, WIDTH, HEIGHT);
             batch.draw(ZastavkaGame, 0, 0, 1, 1, WIDTH, HEIGHT, 1, 1, 0);
 
 
