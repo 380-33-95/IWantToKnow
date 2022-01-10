@@ -140,8 +140,8 @@ public class MyGdxGame extends Blok implements ApplicationListener {
                 DrawMenu.Menu();
                 //  setNC(0);
 
-               if(Pause1sec.Pause1(Gdx.graphics.getDeltaTime())){
-                   System.out.print("+");
+               if(!Pause1sec.Pausa(1000)){
+
                    SelectMenu.SelMenu(getNC());
                }
 

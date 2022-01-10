@@ -2,17 +2,18 @@ package com.mycompany.mygame;
 
 public class Pause1sec {
 
-    public static boolean isFlagTime() {
-        return flagTime;
+    public static boolean isStartTimer() {
+        return StartTimer;
     }
 
-    public static void setFlagTime(boolean flagTime) {
-        flagTime = flagTime;
+    public static void setStartTimer(boolean startTimer) {
+        startTimer = startTimer;
     }
 
-    private static boolean flagTime=false;
+    private static boolean StartTimer =false;
 
     static long current;
+    static long currentTime;
 
 
 
@@ -20,13 +21,13 @@ public class Pause1sec {
 
        boolean end=false;
 
-      if(!isFlagTime() && current==0){
+      if(!isStartTimer() && current==0){
          current= (long) (currentTime+1000);
-         setFlagTime(true);
+         setStartTimer(true);
       }
       else {
           if(current<=currentTime){
-              setFlagTime(false);
+              setStartTimer(false);
               current=0;
               end=true;
           }
@@ -34,4 +35,26 @@ public class Pause1sec {
 
         return end;
     }
+
+
+    public static boolean Pausa(int pause){
+
+        currentTime=com.badlogic.gdx.utils.TimeUtils.millis();
+
+        if(!StartTimer && (current==0)){
+            current=currentTime+pause;
+            StartTimer=true;
+        }
+        else {
+            if (currentTime>=current){
+                StartTimer=false;
+                current=0;
+            }
+        }
+        System.out.println("+");
+        return StartTimer;
+    }
+
+
+    //////////////////////////
 }
